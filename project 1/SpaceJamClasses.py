@@ -1,14 +1,15 @@
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
-from direct.showbase import DirectObject
+#from direct.showbase import DirectObject
 from panda3d.core import *
 from CollideObjectBase import *
+from typing import Callable
 
 class Planet(SphereCollideObject):
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
         #modelPath = geometry, parentNode = our render node, nodeName = name for node
         #texPath = bath in file to texture, posVec = where model shows, scaleVec = how model scaled
-        super(Planet, self).__init__(loader, modelPath, parentNode, nodeName, posVec, 0.1)
+        #super(Planet, self).__init__(loader, modelPath, parentNode, nodeName, posVec, 0.1)
 
         self.modelNode = loader.loadModel(modelPath)                                                #load model
         self.modelNode.reparentTo(parentNode)                                                       #make renderer the parent
@@ -22,7 +23,7 @@ class Planet(SphereCollideObject):
 class Drone(SphereCollideObject):
     droneCount = 0                                                                              #how many drones have been spawned
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
-        super(Drone, self).__init__(loader, modelPath, parentNode, nodeName, posVec, 0.1)
+        #super(Drone, self).__init__(loader, modelPath, parentNode, nodeName, posVec, 0.1)
         
         self.modelNode = loader.loadModel(modelPath)
         self.modelNode.reparentTo(parentNode)
@@ -35,7 +36,7 @@ class Drone(SphereCollideObject):
 
 class Universe(InverseSphereCollideObject):
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
-        super(Universe, self).__init__(loader, modelPath, parentNode, nodeName, Vec3(0, 0, 0), 2)
+        #super(Universe, self).__init__(loader, modelPath, parentNode, nodeName, Vec3(0, 0, 0), 0.9)
         self.modelNode = loader.loadModel(modelPath)
         self.modelNode.reparentTo(parentNode)
         self.modelNode.setPos(posVec)
@@ -45,8 +46,9 @@ class Universe(InverseSphereCollideObject):
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
 
-class Spaceship(SphereCollideObject, DirectObject.DirectObject):
-    def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, posVec: Vec3, scaleVec: float, task, render):
+class Spaceship(SphereCollideObject):
+    def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, posVec: Vec3, scaleVec: float, task, render, accept: Callable[[str, Callable], None]):
+        self.accept = accept
         super(Spaceship, self).__init__(loader, modelPath, parentNode, nodeName, posVec, 0.1)
         self.taskManager = task
         self.render = render

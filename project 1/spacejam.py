@@ -50,10 +50,10 @@ class SpaceJam(ShowBase):
 
     def SetupScene(self):
             #Universe
-        self.Universe = spaceJamClasses.Universe(self.loader, "./Assets/Universe/Universe.x", self.render, 'Universe', "./Assets/Universe/starfield-in-blue.jpg", (0, 0, 0), 15000)
+        self.Universe = spaceJamClasses.Universe(self.loader, "./Assets/Universe/Universe.x", self.render, 'Universe', "./Assets/Universe/starfield-in-blue.jpg", (0, 0, 0), 15000,)
 
             #Spaceship
-        self.Ship = spaceJamClasses.Spaceship(self.loader,"./Assets/Spaceships/Dumbledore/Dumbledore.egg", self.render, 'Ship', (0, 0, 0), 10, self.taskMgr, self.render)
+        self.Ship = spaceJamClasses.Spaceship(self.loader,"./Assets/Spaceships/Dumbledore/Dumbledore.egg", self.render, 'Ship', (0, 0, 0), 10, self.taskMgr, self.render, self.accept)
 
             #Planets
         self.Planet1 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/redPlanet.x", self.render, 'Planet1', "./Assets/Planets/Planet1.jpg", (150, 5000, 67), 350)
